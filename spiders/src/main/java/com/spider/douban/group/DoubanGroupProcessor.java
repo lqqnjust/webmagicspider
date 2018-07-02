@@ -74,10 +74,4 @@ public class DoubanGroupProcessor implements PageProcessor {
         return this.site;
     }
 
-
-    public static void main(String[] args) {
-        Spider.create(new DoubanGroupProcessor()).addUrl("")
-
-                .run();
-    }
 }

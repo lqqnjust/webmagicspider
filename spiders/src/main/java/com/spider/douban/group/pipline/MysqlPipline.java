@@ -36,6 +36,7 @@ public class MysqlPipline implements Pipeline {
         try {
             groupDao.addTopic(bean);
         }catch (Exception ex){
+            ex.printStackTrace();
             logger.error("bean:"+bean);
         }
 
