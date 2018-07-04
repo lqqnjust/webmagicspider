@@ -1,6 +1,5 @@
 package com.spider.douban.group.pipline;
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.spider.douban.group.dao.GroupDao;
 import com.spider.douban.group.models.ImageBean;
 import com.spider.douban.group.models.TopicBean;
