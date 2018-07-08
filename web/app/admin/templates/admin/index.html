@@ -1,0 +1,9 @@
+{% extends 'admin/layout.html' %}
+
+{% block breadcrumb %}
+    <li>
+        <i class="ace-icon fa fa-home home-icon"></i>
+        <a href="{{ url_for('admin.home') }}">Home</a>
+    </li>
+    <li class="active">DashBoard</li>
+{% endblock %}

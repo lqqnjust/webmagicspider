@@ -1,0 +1,60 @@
+<div id="sidebar" class="sidebar responsive ace-save-state">
+    <script type="text/javascript">
+        try{ace.settings.loadState('sidebar')}catch(e){}
+    </script>
+<ul class="nav nav-list">
+    <li {% if request.path==url_for('admin.home') %} class="active" {% endif %}>
+
+        <a href="{{ url_for('admin.home') }}">
+            <i class="menu-icon fa fa-tachometer"></i>
+            <span class="menu-text"> Dashboard </span>
+        </a>
+
+        <b class="arrow"></b>
+    </li>
+
+    <li {% if request.path==url_for('admin.spiderlist') %} class="active" {% endif %}>
+        <a href="{{ url_for('admin.spiderlist') }}">
+            <i class="menu-icon fa fa-tachometer"></i>
+            <span class="menu-text"> 爬虫管理 </span>
+        </a>
+
+        <b class="arrow"></b>
+    </li>
+
+    <li {% if request.path in [url_for('admin.douban_topic_list'), url_for('admin.douban_image_list')] %} class="active open" {% endif %}>
+        <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-desktop"></i>
+            <span class="menu-text">
+                豆瓣小组
+            </span>
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+
+        <b class="arrow"></b>
+
+        <ul class="submenu">
+            <li {% if request.path==url_for('admin.douban_topic_list') %} class="active" {% endif %}>
+                <a href="{{ url_for('admin.douban_topic_list') }}" >
+                    <i class="menu-icon fa fa-caret-right"></i>
+                        话题列表
+                </a>
+            </li>
+            <li {% if request.path==url_for('admin.douban_image_list') %} class="active" {% endif %}>
+                <a href="{{ url_for('admin.douban_image_list') }}" >
+                    <i class="menu-icon fa fa-caret-right"></i>
+                        图片列表
+                </a>
+            </li>
+        </ul>
+    </li>
+
+
+
+    
+</ul><!-- /.nav-list -->
+
+<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+    <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+</div>
+</div>
