@@ -13,7 +13,7 @@ class DoubanGroupSpider:
         self.headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0"
         }
-        self.savedir = r"E:\work\javawork\webmagicspider\web\app\static\images"
+        self.savedir = r"D:\workspace\javaworks\webmagicspider\web\app\static\images"
         if not os.path.exists(self.savedir):
             os.mkdir(self.savedir)
 

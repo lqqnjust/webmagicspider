@@ -3,10 +3,30 @@ from flask import request
 from flask import redirect
 from flask import url_for
 from flask import jsonify
-from flask_login import login_required, login_user, logout_user
+from flask import g
+from flask_login import login_required, logout_user,login_user,current_user
 from . import admin
 from app.models import User, DoubanGroupTopic, DoubanGroupImage
+from app import login_manager
 
+
+@login_manager.user_loader
+def load_user(id):
+    print(id)
+    try:
+        return User.query.get(int(id))
+    except:
+        return None
+
+@admin.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('admin.login'))
+
+@admin.before_request
+def before_request():
+    g.user = current_user
 
 @admin.route('/')
 def home():

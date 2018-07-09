@@ -1,6 +1,6 @@
 from app import db
 from werkzeug.security import  generate_password_hash,check_password_hash
-from app import login_manager
+
 from flask_login import UserMixin
 
 class User(UserMixin,db.Model):
@@ -12,7 +12,6 @@ class User(UserMixin,db.Model):
 
     def __init__(self, UserCode=None, Password=None):
         self.UserCode = UserCode
-
 
     def __repr__(self):
         return '<User %r>' % self.UserCode
@@ -29,16 +28,23 @@ class User(UserMixin,db.Model):
         return check_password_hash(self.Password, password)
 
     @property
+    def is_authenticated(self):
+        return True
+
+    @property
     def is_active(self):
         return True
 
+    @property
+    def is_anonymous(self):
+        return False
+
     def get_id(self):
-        return super().get_id()
+        return str(self.id)  # python 3
 
 
-@login_manager.user_loader
-def load_user(id):
-    return User.query.get(int(id))
+
+
 
 
 class DoubanGroupTopic(db.Model):
