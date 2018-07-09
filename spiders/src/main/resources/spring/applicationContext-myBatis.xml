@@ -9,7 +9,7 @@
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.spider.douban.group.dao" />
+        <property name="basePackage" value="com.spider.douban.group.dao,com.spider.douban.hotshot.dao" />
     </bean>
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
