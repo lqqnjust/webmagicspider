@@ -5,7 +5,7 @@ from flask import url_for
 from flask import jsonify
 from flask_login import login_required, login_user, logout_user
 from . import admin
-from app.models import User, DoubanGroupTopic
+from app.models import User, DoubanGroupTopic, DoubanGroupImage
 
 
 @admin.route('/')
@@ -48,7 +48,9 @@ def get_topic_list():
         data.append({
             "id":topic.topicid,
             "title":topic.topictitle,
-            "author":topic.author_name
+            "author":topic.author_name,
+            "topicurl":topic.topicurl,
+            "authro_profile":topic.authro_profile
         })
     total = DoubanGroupTopic.query.count()
 
@@ -62,5 +64,7 @@ def get_topic_list():
 
 @admin.route('/doubanimagelist')
 def douban_image_list():
-    return render_template("admin/doubanimagelist.html")
+    images = DoubanGroupImage.query.all();
+
+    return render_template("admin/doubanimagelist.html",images=images)
 

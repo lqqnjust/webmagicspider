@@ -66,13 +66,28 @@
 					"processing": true,
 					"searching": true,
 					"serverSide": true,
+					"ordering":  false,
 					"ajax": {
 						"url": "{{ url_for('admin.get_topic_list') }}",
 					},
 					"columns": [
 						{"data": "id"},
-						{"data": "title"},
-						{"data": "author"}
+						{
+							"data": "title",
+							"render": function (data, type, full, callback) {
+								//类型：0导航菜单；1操作按钮。
+
+								return '<a href="'+full['topicurl']+'">'+data+'</a>';
+							}
+						},
+						{
+							"data": "author",
+							"render": function (data, type, full, callback) {
+								//类型：0导航菜单；1操作按钮。
+
+								return '<a href="'+full['authro_profile']+'">'+data+'</a>';
+							}
+						}
 					]
 			    } );
 			})

@@ -4,14 +4,19 @@ from app import db,create_app
 from app.models import DoubanGroupTopic,DoubanGroupImage
 import os
 
+
 class DoubanGroupSpider:
+
     def __init__(self):
         self.urls = ['https://www.douban.com/group/haixiuzu/discussion?start=0']
         self.session = requests.Session()
         self.headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0"
         }
-        self.savedir = r"D:\workspace\javaworks\webmagicspider\images"
+        self.savedir = r"E:\work\javawork\webmagicspider\web\app\static\images"
+        if not os.path.exists(self.savedir):
+            os.mkdir(self.savedir)
+
     def run(self):
         for url in self.urls:
             response = self.session.get(url,headers = self.headers)
@@ -68,13 +73,13 @@ class DoubanGroupSpider:
 
             self.down(img)
 
-
     def down(self, img):
         html = self.session.get(img)
         basename = os.path.basename(img)
         filename = os.path.join(self.savedir,basename)
         with open(filename, 'wb') as file:
             file.write(html.content)
+
 
 if __name__ == '__main__':
     app = create_app('default')
