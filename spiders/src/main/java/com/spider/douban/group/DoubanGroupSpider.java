@@ -19,7 +19,7 @@ public class DoubanGroupSpider {
 
 
     public void crawl() {
-        Spider.create(new DoubanGroupProcessor()).addUrl("https://www.douban.com/group/haixiuzu/discussion?start=0")
+        Spider.create(new DoubanGroupProcessor()).addUrl("https://www.douban.com/group/haixiuzu/discussion?start=23")
                 .addPipeline(jobInfoDaoPipeline)
                 .run();
     }
