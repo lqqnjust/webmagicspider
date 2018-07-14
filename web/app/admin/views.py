@@ -12,7 +12,6 @@ from app import login_manager
 
 @login_manager.user_loader
 def load_user(id):
-    print(id)
     try:
         return User.query.get(int(id))
     except:
@@ -24,15 +23,14 @@ def logout():
     logout_user()
     return redirect(url_for('admin.login'))
 
-@admin.before_request
-def before_request():
-    g.user = current_user
 
 @admin.route('/')
+@login_required
 def home():
     return render_template('admin/index.html')
 
 @admin.route('/spiderlist')
+@login_required
 def spiderlist():
     return render_template('admin/spiderlist.html')
 
@@ -41,19 +39,21 @@ def login():
     if request.method == 'POST':
         user_name = request.form.get('username', None)
         password = request.form.get('password', None)
-        user = User(user_name)
-        user.password = password
-        if user.verify_password(password):
-            login_user(user)
-            return redirect(request.args.get('next') or url_for('admin.home'))
+        user = User.query.filter_by(UserCode=user_name).first()
+        if user is not None:
+            if user.verify_password(password):
+                login_user(user)
+                return redirect(request.args.get('next') or url_for('admin.home'))
 
     return render_template('admin/login.html')
 
 @admin.route('/doubantopiclist')
+@login_required
 def douban_topic_list():
     return render_template("admin/doubantopiclist.html")
 
 @admin.route('/gettopiclist')
+@login_required
 def get_topic_list():
     start = int(request.args.get("start"))
     length = int(request.args.get("length"))
@@ -83,6 +83,7 @@ def get_topic_list():
     return jsonify(context)
 
 @admin.route('/doubanimagelist')
+@login_required
 def douban_image_list():
     images = DoubanGroupImage.query.all();
 

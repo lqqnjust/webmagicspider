@@ -3,6 +3,7 @@ from werkzeug.security import  generate_password_hash,check_password_hash
 
 from flask_login import UserMixin
 
+
 class User(UserMixin,db.Model):
     __tablename__ = 'sys_users'
 
@@ -27,20 +28,7 @@ class User(UserMixin,db.Model):
     def verify_password(self, password):
         return check_password_hash(self.Password, password)
 
-    @property
-    def is_authenticated(self):
-        return True
 
-    @property
-    def is_active(self):
-        return True
-
-    @property
-    def is_anonymous(self):
-        return False
-
-    def get_id(self):
-        return str(self.id)  # python 3
 
 
 
