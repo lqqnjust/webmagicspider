@@ -85,7 +85,7 @@ def get_topic_list():
 @admin.route('/doubanimagelist')
 @login_required
 def douban_image_list():
-    images = DoubanGroupImage.query.all();
+    images = DoubanGroupImage.query.all()[0:10];
 
     return render_template("admin/doubanimagelist.html",images=images)
 

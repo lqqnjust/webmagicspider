@@ -1,5 +1,19 @@
 {% extends 'admin/layout.html' %}
 
+{% block extstyle %}
+.container-fluid {
+  padding: 20px;
+  }
+.box {
+  margin-bottom: 20px;
+  float: left;
+  width: 120px;
+  }
+  .box img {
+  max-width: 100%
+}
+{% endblock %}
+
 {% block breadcrumb %}
     <li>
         <i class="ace-icon fa fa-home home-icon"></i>
@@ -12,19 +26,10 @@
 {% block content %}
 <div class="row">
 	<div class="col-xs-12">
-		<div>
-			<ul class="ace-thumbnails clearfix">
-				{% for img in images %}
-				<li>
-					<a href="/static/images/{{img.imageid}}" data-rel="colorbox">
-						<img width="150" height="150" alt="150x150" src="/static/images/{{img.imageid}}" />
-						<div class="text">
-							<div class="inner">Sample Caption on Hover</div>
-						</div>
-					</a>
-				</li>
-				{% endfor %}
-			</ul>
+		<div id="masonry" class="container-fluid">
+			{% for img in images %}
+			<div class="box"><img src="/static/images/{{img.imageid}}"></div>
+			{% endfor %}
 		</div>
 	</div>
 </div>
@@ -38,42 +43,21 @@
 <!-- ace scripts -->
 <script src="/static/assets/js/ace-elements.min.js"></script>
 <script src="/static/assets/js/ace.min.js"></script>
+<script src="/static/js/masonry-docs.min.js"></script>
 
 <!-- inline scripts related to this page -->
-		<script type="text/javascript">
-			jQuery(function($) {
-			var $overflow = '';
-			var colorbox_params = {
-				rel: 'colorbox',
-				reposition:true,
-				scalePhotos:true,
-				scrolling:false,
-				previous:'<i class="ace-icon fa fa-arrow-left"></i>',
-				next:'<i class="ace-icon fa fa-arrow-right"></i>',
-				close:'&times;',
-				current:'{current} of {total}',
-				maxWidth:'100%',
-				maxHeight:'100%',
-				onOpen:function(){
-					$overflow = document.body.style.overflow;
-					document.body.style.overflow = 'hidden';
-				},
-				onClosed:function(){
-					document.body.style.overflow = $overflow;
-				},
-				onComplete:function(){
-					$.colorbox.resize();
-				}
-			};
+<script type="text/javascript">
+	jQuery(function($) {
+		var $container = $('#masonry');
+		$container.imagesLoaded(function() {
+			$container.masonry({
+				itemSelector: '.box',
+				gutter: 20,
+				isAnimated: true,
+			});
+		});
+    });
 
-			$('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
-			$("#cboxLoadingGraphic").html("<i class='ace-icon fa fa-spinner orange fa-spin'></i>");//let's add a custom loading icon
-
-
-			$(document).one('ajaxloadstart.page', function(e) {
-				$('#colorbox, #cboxOverlay').remove();
-		   });
-		})
-		</script>
+</script>
 
 {% endblock %}
